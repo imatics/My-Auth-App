@@ -96,9 +96,9 @@ public class UserService implements UserDetailsService, UserDetailsPasswordServi
     }
 
     public Token getToken(LoginDTO loginModel){
-        User user = repository.getUserByEmail(loginModel.getUsername()).orElseThrow(() -> ClientException.of(messageCreator.createMessage(ServiceConstants.WRONG_EMAIL_OR_PASSWORD)));
+        User user = repository.getUserByEmail(loginModel.getEmail()).orElseThrow(() -> ClientException.of(messageCreator.createMessage(ServiceConstants.WRONG_EMAIL_OR_PASSWORD)));
         Authentication authentication = authenticationManager
-            .authenticate(new UsernamePasswordAuthenticationToken(loginModel.getUsername(), loginModel.getPassword()));
+            .authenticate(new UsernamePasswordAuthenticationToken(loginModel.getEmail(), loginModel.getPassword()));
 
         String token = jwtGenerator.generateToken(authentication,
             String.format("%s,%s", user.getEmail(), user.getPhone()), new HashMap<>());

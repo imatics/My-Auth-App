@@ -17,7 +17,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(access = AccessLevel.PUBLIC, setterPrefix = "set")
-@Table(name = "_user")
+@Table(name = "user")
 public class User {
         @Id
         @GeneratedValue(strategy = GenerationType.UUID)
