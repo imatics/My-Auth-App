@@ -16,7 +16,7 @@ public class ExceptionApiHandler {
 	@ExceptionHandler(ClientException.class)
 	public ResponseEntity<ErrorResponseDTO> handleClientException(ClientException e) {
 		return ResponseEntity
-		.status(HttpStatus.NOT_FOUND)
+		.status(HttpStatus.NOT_ACCEPTABLE)
 		.body(new ErrorResponseDTO(e.getMessage()));
 	}
 

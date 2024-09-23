@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.VarcharJdbcType;
 
 import java.time.ZonedDateTime;
 import java.util.Set;
@@ -20,6 +22,8 @@ import java.util.UUID;
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(columnDefinition = "VARCHAR(255)")
+    @JdbcType(VarcharJdbcType.class)
     private UUID id;
     private String name;
     @ManyToMany(fetch = FetchType.EAGER)

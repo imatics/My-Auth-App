@@ -3,6 +3,8 @@ package com.auth.app.model.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.VarcharJdbcType;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -21,6 +23,8 @@ import java.util.UUID;
 public class User {
         @Id
         @GeneratedValue(strategy = GenerationType.UUID)
+        @Column(columnDefinition = "VARCHAR(255)")
+        @JdbcType(VarcharJdbcType.class)
         private UUID id;
         private String firstName;
         private String middleName;
