@@ -3,6 +3,7 @@ package com.auth.app.controller;
 import com.auth.app.model.DTO.*;
 import com.auth.app.service.UserService;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ class UsersController {
     private UserService userService;
 
     @PostMapping("/createUser")
-    public ResponseEntity<Boolean> createNewUser(@RequestBody CreateUserDTO createUserDTO){
+    public ResponseEntity<Boolean> createNewUser(@Valid @RequestBody CreateUserDTO createUserDTO){
         userService.createUser(createUserDTO, false);
         return ResponseEntity.ok().body(true);
     }
@@ -37,8 +38,6 @@ class UsersController {
     }
 
 
-
-
     @GetMapping("/all")
     public ResponseEntity<List<ProfileDTO>> getAllUsers() {
             return ResponseEntity.ok().body(userService.getUsers());
@@ -48,7 +47,6 @@ class UsersController {
     public ResponseEntity<ProfileDTO> getUserByEmail(String email) {
             return ResponseEntity.ok().body(userService.getUserProfileByEmail(email));
     }
-
 
 
     @PutMapping("/profile")
