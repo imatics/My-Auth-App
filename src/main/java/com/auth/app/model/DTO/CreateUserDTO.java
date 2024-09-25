@@ -23,7 +23,6 @@ public class CreateUserDTO {
     @Pattern(regexp = "^[^@]+@[^@]+\\.[^@]+$", flags = {Pattern.Flag.CASE_INSENSITIVE}, message = "Email is invalid")
     private String email;
 
-
     @NotEmpty(message = "password can not be blank")
     @Size(min = 6, max = 50, message = "The length of full name must be between 50")
     private String password;
