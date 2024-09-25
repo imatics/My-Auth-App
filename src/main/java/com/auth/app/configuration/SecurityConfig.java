@@ -22,6 +22,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -45,6 +46,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+import static org.springframework.security.config.web.server.ServerHttpSecurity.http;
 
 
 @Configuration
@@ -110,7 +113,8 @@ class SecurityConfig {
             authorizationManagerRequestMatcherRegistry.anyRequest().authenticated();
         });
 
-        newHttp.httpBasic(Customizer.withDefaults())
+        newHttp.httpBasic(withDefaults())
+                .csrf(AbstractHttpConfigurer::disable)
             .oauth2ResourceServer(httpSecurityOAuth2ResourceServerConfigurer -> httpSecurityOAuth2ResourceServerConfigurer.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())));
 
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
